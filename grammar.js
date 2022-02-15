@@ -58,8 +58,7 @@ module.exports = grammar({
             seq('event', $.event_hdr, ';'),
             prec_r(seq('if', '(', $.expr, ')', $._stmt, optional(seq('else', $._stmt)))),
             seq('switch', $.expr, '{', optional($.case_list), '}'),
-            seq('for', '(', $.id, optional(seq(',', $.id)), 'in', $.expr, ')', $._stmt),
-            seq('for', '(', '[', list1($.id, ','), ']', optional(seq(',', $.id)), 'in', $.expr, ')', $._stmt),
+            $.for,
             seq('while', '(', $.expr, ')', $._stmt),
             seq(choice('next', 'break', 'fallthrough'), ';'),
             seq('return', optional($.expr), ';'),
@@ -78,6 +77,11 @@ module.exports = grammar({
             // Same ambiguity as above for 'const'
             prec(-1, $.preproc),
             ';',
+        ),
+
+        for: $ => choice(
+            seq('for', '(', $.id, optional(seq(',', $.id)), 'in', $.expr, ')', $._stmt),
+            seq('for', '(', '[', list1($.id, ','), ']', optional(seq(',', $.id)), 'in', $.expr, ')', $._stmt)
         ),
 
         stmt_list: $ => repeat1($._stmt),
