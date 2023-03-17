@@ -151,16 +151,10 @@ module.exports = grammar({
 
         initializer: $ => seq(
             optional($.init_class),
-            $.init,
+            $.expr,
         ),
 
         init_class: $ => prec_r(choice('=', '+=', '-=')),
-
-        init: $ => choice(
-            seq('{', '}'),
-            seq('{', repeat(seq($.expr, ',')), $.expr, '}'),
-            $.expr,
-        ),
 
         attr_list: $ => prec_l(repeat1($.attr)),
 
@@ -239,6 +233,7 @@ module.exports = grammar({
             prec(2, seq('$', $.id, $.begin_lambda, '=', $.func_body)),
 
             prec_l(1, seq('[', optional($.expr_list), ']')),
+            prec_l(1, seq('{', optional($.expr_list), '}')),
             prec_l(1, seq('record', '(', $.expr_list, ')')),
             prec_l(1, seq('table', '(', optional($.expr_list), ')', optional($.attr_list))),
             prec_l(1, seq('set', '(', optional($.expr_list), ')', optional($.attr_list))),
@@ -264,7 +259,7 @@ module.exports = grammar({
         field_access: $ => prec_l(seq($.expr, '$', $.id)),
         field_check: $ => prec_l(seq($.expr, '?$', $.id)),
 
-        expr_list: $ => list1($.expr, ','),
+        expr_list: $ => list1($.expr, ',', true),
 
         constant: $ => choice(
             // Associativity here resolves ambiguity with division
