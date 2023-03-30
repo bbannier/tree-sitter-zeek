@@ -36,7 +36,7 @@ module.exports = grammar({
         const_decl: $ => seq('const', $.id, optional(seq(':', $.type)), optional($.initializer), optional($.attr_list), ';'),
         redef_decl: $ => seq('redef', $.id, optional(seq(':', $.type)), optional($.initializer), optional($.attr_list), ';'),
 
-        redef_enum_decl: $ => seq('redef', 'enum', $.id, '+=', '{', $.enum_body, '}', ';'),
+        redef_enum_decl: $ => seq('redef', 'enum', $.id, '+=', '{', $._enum_body, '}', ';'),
         redef_record_decl: $ => seq('redef', 'record', $.id, '+=', '{', repeat($.type_spec), '}', optional($.attr_list), ';'),
         type_decl: $ => seq('type', $.id, ':', $.type, optional($.attr_list), ';'),
 
@@ -115,7 +115,7 @@ module.exports = grammar({
             'timer',
             seq('record', '{', repeat($.type_spec), '}'),
             seq('union', '{', list1($.type, ','), '}'),
-            seq('enum', '{', $.enum_body, '}'),
+            seq('enum', '{', $._enum_body, '}'),
             'list',
             seq('list', 'of', $.type),
             seq('vector', 'of', $.type),
@@ -128,7 +128,7 @@ module.exports = grammar({
             $.id,
         ),
 
-        enum_body: $ => list1($.enum_body_elem, ',', true),
+        _enum_body: $ => list1($.enum_body_elem, ',', true),
 
         enum_body_elem: $ => choice(
             seq($.id, '=', $.constant, optional($.deprecated)),
