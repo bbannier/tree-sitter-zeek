@@ -1,9 +1,9 @@
 ;; Language features
 ;; -----------------
 
-(event (id) @function)
-(hook (id) @function)
-(func (id) @function)
+(event_decl (id) @function)
+(hook_decl (id) @function)
+(func_decl (id) @function)
 (type) @type
 (attr) @attribute
 
@@ -11,9 +11,9 @@
 ;; --------
 
 (minor_comment) @comment
-(zeekygen_head_comment) @property
-(zeekygen_prev_comment) @property
-(zeekygen_next_comment) @property
+(zeekygen_head_comment) @comment
+(zeekygen_prev_comment) @comment
+(zeekygen_next_comment) @comment
 (string) @string
 (constant) @constant
 
