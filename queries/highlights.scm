@@ -4,6 +4,9 @@
 (event_decl (id) @function)
 (hook_decl (id) @function)
 (func_decl (id) @function)
+
+(expr (id) @function . "(" . (expr_list)? . ")")
+
 (type) @type
 (attr) @attribute
 
