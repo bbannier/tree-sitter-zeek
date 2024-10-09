@@ -90,6 +90,7 @@
  "local"
  "module"
  "next"
+ "option"
  "print"
  "record"
  "redef"
