@@ -77,6 +77,7 @@ module.exports = grammar({
             // Same ambiguity as above for 'const'
             prec(-1, $.preproc),
             ';',
+            seq("assert", $.expr, optional($.assert_msg), ";"),
         ),
 
         for: $ => choice(
@@ -96,6 +97,8 @@ module.exports = grammar({
 
         case_type_list: $ => list1(
             seq('type', $.type, optional(seq('as', $.id))), ','),
+
+        assert_msg: ($) => seq(",", $.expr),
 
         type: $ => choice(
             'addr',
