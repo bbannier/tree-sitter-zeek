@@ -18,20 +18,20 @@ jobs:
       fail-fast: false
     steps:
       - name: Checkout parser sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Checkout Zeek sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: zeek/zeek
           path: test/zeek-src
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
           node-version: '14'
 
       - run: npm install
-        
+
       - name: Add Node.js to PATH
         run: echo "$PWD/node_modules/.bin" >> $GITHUB_PATH
 
@@ -50,7 +50,7 @@ jobs:
         run: cd test && ./parse-zeek-tree.sh ./zeek-src/scripts
 
       - name: Upload test artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: parser-errors
