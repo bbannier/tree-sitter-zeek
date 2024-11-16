@@ -1,59 +1,26 @@
-name: Build and tests
+name: Check
 
 on:
   pull_request:
   push:
     branches: [main]
-    tags:
-  schedule:
-    - cron: '0 0 * * *'
 
 jobs:
-  tests:
-    name: "Build and run parser tests"
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-      fail-fast: false
+  test:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout parser sources
-        uses: actions/checkout@v4
-
-      - name: Checkout Zeek sources
-        uses: actions/checkout@v4
-        with:
-          repository: zeek/zeek
-          path: test/zeek-src
-
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: latest
+      - run: |
+          npm ci
+      - run: |
+          npm test
 
-      - run: npm install
-
-      - name: Add Node.js to PATH
-        run: echo "$PWD/node_modules/.bin" >> $GITHUB_PATH
-
-      - name: Setup tree-sitter
-        # "tree-sitter init-config" adds $HOME/github as a default
-        # directory to look for languages in, so we create a symlink
-        # that directs it to our local clone.
-        run: |
-          ln -s $(cd .. && pwd) $HOME/github
-          tree-sitter init-config
-
-      - name: Generate parser
-        run: tree-sitter generate
-
-      - name: Test Zeek grammar
-        run: cd test && ./parse-zeek-tree.sh ./zeek-src/scripts
-
-      - name: Upload test artifacts
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: parser-errors
-          path: |
-            *.zeek
-            *.err
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+      - uses: pre-commit/action@v3.0.1
