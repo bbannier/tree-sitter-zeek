@@ -1,9 +1,9 @@
 ;; Language features
 ;; -----------------
 
-(event_decl (id) @function)
-(hook_decl (id) @function)
-(func_decl (id) @function)
+(event_decl (id) @name) @definition.implementation
+(hook_decl (id) @name) @definition.implementation
+(func_decl (id) @name) @definition.function
 
 (expr (id) @function . "(" . (expr_list)? . ")")
 

@@ -1,11 +1,19 @@
-function foo(x: count)
+function foo(x: count) {}
 # <- keyword
-         # <- function
-	{ }
+         # <- name
+        # <- definition.function
 
 event bar(c: connection, event_type: string, detail: string) {
-    foo(c);
+# <- keyword
+     # <- definition.implementation
+      # <- name
+    foo(0);
     # <- function
 }
+
+hook baz() {}
+# <- keyword
+     # <- name
+    # <- @definition.implementation
 
 # vim: ft=zeek
