@@ -1,3 +1,6 @@
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-check
+
 // Aliases that make things easier to read
 prec_r = prec.right;
 prec_l = prec.left;
@@ -71,12 +74,10 @@ module.exports = grammar({
       seq(
         "redef",
         "record",
-        $.id,
-        "+=",
-        "{",
-        repeat($.type_spec),
-        "}",
-        optional($.attr_list),
+        choice(
+          seq($.id, "+=", "{", repeat($.type_spec), "}", optional($.attr_list)),
+          seq($.expr, "-=", "{", $.attr_list, "}"),
+        ),
         ";",
       ),
     type_decl: ($) =>
@@ -94,7 +95,7 @@ module.exports = grammar({
         $.func_decl,
         $.hook_decl,
         $.event_decl,
-        $.preproc,
+        $.preproc_directive,
         // TODO: @no-test support
         seq("{", optional($.stmt_list), "}"),
         seq("print", $.expr_list, ";"),
@@ -127,7 +128,7 @@ module.exports = grammar({
         seq($.index_slice, "=", $.expr, ";"),
         seq($.expr, ";"),
         // Same ambiguity as above for 'const'
-        prec(-1, $.preproc),
+        prec(-1, $.preproc_directive),
         ";",
         seq("assert", $.expr, optional($.assert_msg), ";"),
       ),
@@ -386,7 +387,7 @@ module.exports = grammar({
         $._func_body,
       ),
 
-    _func_body: ($) => seq(repeat($.preproc), $.func_body),
+    _func_body: ($) => seq(repeat($.preproc_directive), $.func_body),
     func_body: ($) => seq("{", optional($.stmt_list), "}"),
 
     // Precedence here is to disambiguate other interpretations of the colon
@@ -404,23 +405,32 @@ module.exports = grammar({
 
     capture: ($) => seq(optional("copy"), $.id),
 
-    // The "preprocessor" options. We include more than conditionals here.
-    preproc: ($) =>
+    // The "preprocessor" directives. We include more than conditionals here.
+    preproc_directive: ($) =>
       choice(
         seq("@deprecated", optional("("), $.string, optional(")")),
         seq("@load", $.file),
         seq("@load-sigs", $.file),
+        seq("@load-plugin", $.id),
+        seq("@unload", $.file),
         seq("@prefixes", choice("=", "+="), $.file),
         seq("@if", "(", $.expr, ")"),
         seq("@ifdef", "(", $.id, ")"),
         seq("@ifndef", "(", $.id, ")"),
         "@endif",
         "@else",
+        $.pragma,
       ),
+
+    pragma: () =>
+      seq(token("@pragma"), choice("push", "pop"), /[A-Za-z0-9][A-Za-z0-9\-]*/),
+
+    // These directives return strings.
+    string_directive: ($) => choice("@DIR", "@FILENAME"),
 
     event_hdr: ($) => seq($.id, "(", optional($.expr_list), ")"),
 
-    id: () => /(([A-Za-z_][A-Za-z_0-9]*)?::)?[A-Za-z_][A-Za-z_0-9]*/,
+    id: () => /(::)?([A-Za-z_][A-Za-z_0-9]*)(::[A-Za-z_][A-Za-z_0-9]*)*/,
     file: ($) => /[^ \t\r\n]+/,
     pattern: ($) => /\/((\\\/)?[^\r\n\/]?)*\/i?/,
 
@@ -451,7 +461,11 @@ module.exports = grammar({
     hostname: ($) => /([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z][A-Za-z0-9\-]*/,
 
     // Plain string characters or escape sequences, wrapped in double-quotes.
-    string: ($) => /"([^\\\r\n\"]|\\([^\r\n]|[0-7]+|x[0-9a-fA-F]+))*"/,
+    string: ($) =>
+      choice(
+        /"([^\\\r\n\"]|\\([^\r\n]|[0-7]+|x[0-9a-fA-F]+))*"/,
+        $.string_directive,
+      ),
 
     // Zeekygen comments come in three flavors: a head one at the beginning
     // of a script (##!), one that refers to the previous node (##<), and
@@ -467,6 +481,8 @@ module.exports = grammar({
     // existing formatting in select places.
     nl: ($) => /\r?\n/,
   },
+
+  conflicts: ($) => [[$.expr, $.redef_record_decl]],
 
   extras: ($) => [
     /[ \t]+/,

@@ -29,3 +29,33 @@ assert 1 == 1;
       (constant
         (integer))))
   (nl))
+
+================================================================================
+Redef record
+================================================================================
+
+redef record Foo += { foo: Info &optional; };
+redef record Conn::Info$ip_proto -= { &log };
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (nl)
+  (redef_record_decl
+    (id)
+    (type_spec
+      (id)
+      (type
+        (id))
+      (attr_list
+        (attr))))
+  (nl)
+  (redef_record_decl
+    (expr
+      (field_access
+        (expr
+          (id))
+        (id)))
+    (attr_list
+      (attr)))
+  (nl))
