@@ -1377,6 +1377,10 @@
     "named": false
   },
   {
+    "type": "&ordered",
+    "named": false
+  },
+  {
     "type": "&priority",
     "named": false
   },
@@ -1638,11 +1642,11 @@
   },
   {
     "type": "file",
-    "named": true
+    "named": false
   },
   {
     "type": "file",
-    "named": false
+    "named": true
   },
   {
     "type": "floatp",
