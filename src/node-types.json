@@ -411,6 +411,10 @@
           "named": true
         },
         {
+          "type": "enum_body_elem",
+          "named": true
+        },
+        {
           "type": "event_hdr",
           "named": true
         },
@@ -448,6 +452,10 @@
         },
         {
           "type": "type",
+          "named": true
+        },
+        {
+          "type": "type_spec",
           "named": true
         }
       ]
@@ -1746,11 +1754,11 @@
   },
   {
     "type": "pattern",
-    "named": true
+    "named": false
   },
   {
     "type": "pattern",
-    "named": false
+    "named": true
   },
   {
     "type": "pop",
@@ -1818,10 +1826,6 @@
   },
   {
     "type": "timeout",
-    "named": false
-  },
-  {
-    "type": "timer",
     "named": false
   },
   {
