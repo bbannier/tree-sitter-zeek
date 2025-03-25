@@ -109,19 +109,23 @@ print table[int] of vector of table[string] of count;
 (source_file
   (nl)
   (expr_list
-    (expr))
+    (expr
+      (type)))
+  (nl)
+  (expr_list
+    (expr
+      (type
+        (type))))
   (nl)
   (expr_list
     (expr
       (type)))
   (nl)
   (expr_list
-    (expr))
-  (nl)
-  (expr_list
     (expr
-      (type)
       (type
+        (type)
         (type
-          (type)
-          (type))))))
+          (type
+            (type)
+            (type)))))))

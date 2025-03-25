@@ -3409,8 +3409,13 @@
           "name": "pattern"
         },
         {
-          "type": "SYMBOL",
-          "name": "_simple_type"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_simple_type"
+          },
+          "named": true,
+          "value": "type"
         },
         {
           "type": "SEQ",
