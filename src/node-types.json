@@ -214,11 +214,6 @@
     }
   },
   {
-    "type": "deprecated",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "enum_body_elem",
     "named": true,
     "fields": {},
@@ -227,11 +222,11 @@
       "required": true,
       "types": [
         {
-          "type": "constant",
+          "type": "attr",
           "named": true
         },
         {
-          "type": "deprecated",
+          "type": "constant",
           "named": true
         },
         {
@@ -1642,11 +1637,11 @@
   },
   {
     "type": "file",
-    "named": false
+    "named": true
   },
   {
     "type": "file",
-    "named": true
+    "named": false
   },
   {
     "type": "floatp",
@@ -1746,11 +1741,11 @@
   },
   {
     "type": "pattern",
-    "named": false
+    "named": true
   },
   {
     "type": "pattern",
-    "named": true
+    "named": false
   },
   {
     "type": "pop",
@@ -1758,11 +1753,11 @@
   },
   {
     "type": "port",
-    "named": false
+    "named": true
   },
   {
     "type": "port",
-    "named": true
+    "named": false
   },
   {
     "type": "print",
