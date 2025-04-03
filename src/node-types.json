@@ -209,6 +209,10 @@
         {
           "type": "string",
           "named": true
+        },
+        {
+          "type": "subnet",
+          "named": true
         }
       ]
     }
@@ -778,11 +782,6 @@
     }
   },
   {
-    "type": "integer",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "interval",
     "named": true,
     "fields": {},
@@ -1174,6 +1173,29 @@
     "type": "string_directive",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "subnet",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "integer",
+          "named": true
+        },
+        {
+          "type": "ipv4",
+          "named": true
+        },
+        {
+          "type": "ipv6",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "type",
@@ -1688,6 +1710,10 @@
     "named": false
   },
   {
+    "type": "integer",
+    "named": true
+  },
+  {
     "type": "interval",
     "named": false
   },
@@ -1741,11 +1767,11 @@
   },
   {
     "type": "pattern",
-    "named": true
+    "named": false
   },
   {
     "type": "pattern",
-    "named": false
+    "named": true
   },
   {
     "type": "pop",
@@ -1753,11 +1779,11 @@
   },
   {
     "type": "port",
-    "named": true
+    "named": false
   },
   {
     "type": "port",
-    "named": false
+    "named": true
   },
   {
     "type": "print",
