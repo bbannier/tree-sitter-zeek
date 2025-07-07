@@ -862,6 +862,21 @@
     }
   },
   {
+    "type": "pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "pattern_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "pragma",
     "named": true,
     "fields": {}
@@ -1686,11 +1701,11 @@
   },
   {
     "type": "file",
-    "named": false
+    "named": true
   },
   {
     "type": "file",
-    "named": true
+    "named": false
   },
   {
     "type": "floatp",
@@ -1793,7 +1808,7 @@
     "named": false
   },
   {
-    "type": "pattern",
+    "type": "pattern_body",
     "named": true
   },
   {

@@ -4287,8 +4287,25 @@
       "value": "[^ \\t\\r\\n]+"
     },
     "pattern": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "/"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pattern_body"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\/i?"
+        }
+      ]
+    },
+    "pattern_body": {
       "type": "PATTERN",
-      "value": "\\/((\\\\\\/)?[^\\r\\n\\/]?)*\\/i?"
+      "value": "((\\\\\\/)?[^\\r\\n\\/]?)*"
     },
     "ipv4": {
       "type": "PATTERN",

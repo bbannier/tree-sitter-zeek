@@ -161,3 +161,26 @@ type enum_with_deprecated_implicit: enum {
       (enum_body_elem
         (id))
       (nl))))
+
+================================================================================
+Pattern
+================================================================================
+
+/abc/;
+/abc/i;
+/\/abc/i;
+--------------------------------------------------------------------------------
+
+(source_file
+  (nl)
+  (expr
+    (pattern
+      (pattern_body)))
+  (nl)
+  (expr
+    (pattern
+      (pattern_body)))
+  (nl)
+  (expr
+    (pattern
+      (pattern_body))))
