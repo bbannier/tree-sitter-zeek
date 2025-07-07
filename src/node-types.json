@@ -805,6 +805,21 @@
     }
   },
   {
+    "type": "minor_comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "comment_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "module_decl",
     "named": true,
     "fields": {},
@@ -1314,6 +1329,10 @@
     "named": false
   },
   {
+    "type": "#",
+    "named": false
+  },
+  {
     "type": "$",
     "named": false
   },
@@ -1618,6 +1637,10 @@
     "named": false
   },
   {
+    "type": "comment_body",
+    "named": true
+  },
+  {
     "type": "const",
     "named": false
   },
@@ -1740,10 +1763,6 @@
   {
     "type": "local",
     "named": false
-  },
-  {
-    "type": "minor_comment",
-    "named": true
   },
   {
     "type": "module",

@@ -472,7 +472,8 @@ module.exports = grammar({
     zeekygen_prev_comment: ($) => /##<[^\r\n]*/,
     zeekygen_next_comment: ($) => /##[^\r\n]*/,
 
-    minor_comment: ($) => /#[^\r\n]*/,
+    minor_comment: ($) => seq("#", $.comment_body),
+    comment_body: (_) => /[^\r\n]*/,
 
     // We track newlines explicitly -- this gives us the ability to honor
     // existing formatting in select places.

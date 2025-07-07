@@ -64,7 +64,8 @@ Cluster::Supervisor::__init_cluster_nodes();
   (nl)
   (expr
     (id))
-  (minor_comment)
+  (minor_comment
+    (comment_body))
   (nl)
   (expr
     (id)))

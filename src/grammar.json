@@ -4400,8 +4400,21 @@
       "value": "##[^\\r\\n]*"
     },
     "minor_comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comment_body"
+        }
+      ]
+    },
+    "comment_body": {
       "type": "PATTERN",
-      "value": "#[^\\r\\n]*"
+      "value": "[^\\r\\n]*"
     },
     "nl": {
       "type": "PATTERN",

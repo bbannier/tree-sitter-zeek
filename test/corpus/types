@@ -71,7 +71,8 @@ Subnet
         (integer))))
   (nl)
   (nl)
-  (minor_comment)
+  (minor_comment
+    (comment_body))
   (nl)
   (expr
     (constant
