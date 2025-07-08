@@ -19,6 +19,7 @@
 (zeekygen_next_comment) @comment
 (string) @string
 (constant) @constant
+(pattern) @regexp
 
 ;; Tokens
 ;; ------

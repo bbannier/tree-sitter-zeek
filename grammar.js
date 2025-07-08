@@ -434,7 +434,7 @@ module.exports = grammar({
 
     id: () => /(::)?([A-Za-z_][A-Za-z_0-9]*)(::[A-Za-z_][A-Za-z_0-9]*)*/,
     file: ($) => /[^ \t\r\n]+/,
-    pattern: ($) => seq("/", $.pattern_body, /\/i?/),
+    pattern: ($) => seq(/\//, $.pattern_body, /\/i?/),
     pattern_body: (_) => /((\\\/)?[^\r\n\/]?)*/,
 
     ipv4: (_) => /([0-9]+\.*){4}/,
