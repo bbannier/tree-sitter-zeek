@@ -40,17 +40,6 @@
       "optional": true
     }
   },
-  "tree-sitter": [
-    {
-      "scope": "source.zeek",
-      "file-types": [
-        "zeek"
-      ],
-      "highlights": [
-        "queries/highlights.scm"
-      ]
-    }
-  ],
   "scripts": {
     "test": "tree-sitter test",
     "install": "node-gyp-build",
