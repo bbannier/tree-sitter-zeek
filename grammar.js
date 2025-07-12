@@ -469,9 +469,9 @@ module.exports = grammar({
     // of a script (##!), one that refers to the previous node (##<), and
     // ones that refer to the subsequent one. Note that we skip the final
     // newline.
-    zeekygen_head_comment: ($) => /##![^\r\n]*/,
-    zeekygen_prev_comment: ($) => /##<[^\r\n]*/,
-    zeekygen_next_comment: ($) => /##[^\r\n]*/,
+    zeekygen_head_comment: ($) => seq("##!", $.comment_body),
+    zeekygen_prev_comment: ($) => seq("##<", $.comment_body),
+    zeekygen_next_comment: ($) => seq("##", $.comment_body),
 
     minor_comment: ($) => seq("#", $.comment_body),
     comment_body: (_) => /[^\r\n]*/,

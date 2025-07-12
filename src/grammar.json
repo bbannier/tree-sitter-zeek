@@ -4405,16 +4405,43 @@
       ]
     },
     "zeekygen_head_comment": {
-      "type": "PATTERN",
-      "value": "##![^\\r\\n]*"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "##!"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comment_body"
+        }
+      ]
     },
     "zeekygen_prev_comment": {
-      "type": "PATTERN",
-      "value": "##<[^\\r\\n]*"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "##<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comment_body"
+        }
+      ]
     },
     "zeekygen_next_comment": {
-      "type": "PATTERN",
-      "value": "##[^\\r\\n]*"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "##"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comment_body"
+        }
+      ]
     },
     "minor_comment": {
       "type": "SEQ",
