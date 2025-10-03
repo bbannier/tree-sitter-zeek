@@ -76,7 +76,7 @@ module.exports = grammar({
         "record",
         choice(
           seq($.id, "+=", "{", repeat($.type_spec), "}", optional($.attr_list)),
-          seq($.expr, "-=", "{", $.attr_list, "}"),
+          seq($.expr, choice("+=", "-="), "{", $.attr_list, "}"),
         ),
         ";",
       ),

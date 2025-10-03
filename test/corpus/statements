@@ -36,6 +36,7 @@ Redef record
 
 redef record Foo += { foo: Info &optional; };
 redef record Conn::Info$ip_proto -= { &log };
+redef record Conn::Info$ip_proto += { &log };
 
 --------------------------------------------------------------------------------
 
@@ -49,6 +50,15 @@ redef record Conn::Info$ip_proto -= { &log };
         (id))
       (attr_list
         (attr))))
+  (nl)
+  (redef_record_decl
+    (expr
+      (field_access
+        (expr
+          (id))
+        (id)))
+    (attr_list
+      (attr)))
   (nl)
   (redef_record_decl
     (expr
