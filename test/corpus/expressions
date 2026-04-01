@@ -130,3 +130,23 @@ print table[int] of vector of table[string] of count;
           (type
             (type)
             (type)))))))
+
+================================================================================
+Operations
+================================================================================
+
+total_secs / 3600 / 24;
+---
+
+(source_file
+  (nl)
+  (expr
+    (expr
+      (expr
+        (id))
+      (expr
+        (constant
+          (integer))))
+    (expr
+      (constant
+        (integer)))))

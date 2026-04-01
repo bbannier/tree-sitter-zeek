@@ -437,7 +437,10 @@ module.exports = grammar({
     pattern: ($) => seq(/\//, $.pattern_body, /\/i?/),
     pattern_body: (_) => /((\\\/)?[^\r\n\/]?)*/,
 
-    ipv4: (_) => /([0-9]+\.*){4}/,
+    ipv4: (_) =>
+      token(
+        /((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/,
+      ),
     ipv6: (_) => /\[([0-9a-fA-F]?:*)+(:+([0-9]+\.*){4})?\]/,
 
     // Increase precedence to prefer matching over division.
