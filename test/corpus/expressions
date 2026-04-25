@@ -150,3 +150,49 @@ total_secs / 3600 / 24;
     (expr
       (constant
         (integer)))))
+
+================================================================================
+Record field
+================================================================================
+
+c$http$method || c$http$uri;
+c$http?$method || c$http?$uri;
+---
+
+(source_file
+  (nl)
+  (expr
+    (expr
+      (field_access
+        (expr
+          (field_access
+            (expr
+              (id))
+            (id)))
+        (id)))
+    (expr
+      (field_access
+        (expr
+          (field_access
+            (expr
+              (id))
+            (id)))
+        (id))))
+  (nl)
+  (expr
+    (expr
+      (field_check
+        (expr
+          (field_access
+            (expr
+              (id))
+            (id)))
+        (id)))
+    (expr
+      (field_check
+        (expr
+          (field_access
+            (expr
+              (id))
+            (id)))
+        (id)))))
