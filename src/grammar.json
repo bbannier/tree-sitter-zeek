@@ -1853,56 +1853,6 @@
         }
       ]
     },
-    "func_params": {
-      "type": "PREC_LEFT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "("
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "formal_args"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          },
-          {
-            "type": "STRING",
-            "value": ")"
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ":"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "type"
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        ]
-      }
-    },
     "formal_args": {
       "type": "CHOICE",
       "members": [
@@ -2416,6 +2366,14 @@
           "content": {
             "type": "SYMBOL",
             "name": "field_access"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 7,
+          "content": {
+            "type": "SYMBOL",
+            "name": "field_check"
           }
         },
         {
@@ -3510,10 +3468,6 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "field_check"
-        },
-        {
           "type": "SEQ",
           "members": [
             {
@@ -3584,7 +3538,7 @@
     },
     "field_access": {
       "type": "PREC_LEFT",
-      "value": 0,
+      "value": 9,
       "content": {
         "type": "SEQ",
         "members": [
@@ -3593,8 +3547,11 @@
             "name": "expr"
           },
           {
-            "type": "STRING",
-            "value": "$"
+            "type": "TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "$"
+            }
           },
           {
             "type": "SYMBOL",
@@ -3605,7 +3562,7 @@
     },
     "field_check": {
       "type": "PREC_LEFT",
-      "value": 0,
+      "value": 9,
       "content": {
         "type": "SEQ",
         "members": [
@@ -3614,8 +3571,11 @@
             "name": "expr"
           },
           {
-            "type": "STRING",
-            "value": "?$"
+            "type": "TOKEN",
+            "content": {
+              "type": "STRING",
+              "value": "?$"
+            }
           },
           {
             "type": "SYMBOL",
@@ -3890,6 +3850,56 @@
           "value": "}"
         }
       ]
+    },
+    "func_params": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "formal_args"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": ")"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ":"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "type"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "index_slice": {
       "type": "SEQ",
@@ -4241,7 +4251,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "[A-Za-z0-9][A-Za-z0-9\\-]*"
+          "value": "[A-Za-z0-9][A-Za-z0-9-]*"
         }
       ]
     },
@@ -4314,7 +4324,7 @@
     },
     "pattern_body": {
       "type": "PATTERN",
-      "value": "((\\\\\\/)?[^\\r\\n\\/]?)*"
+      "value": "((\\\\\\/)?[^\\r\\n/]?)*"
     },
     "ipv4": {
       "type": "TOKEN",
@@ -4401,14 +4411,14 @@
     },
     "hostname": {
       "type": "PATTERN",
-      "value": "([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z][A-Za-z0-9\\-]*"
+      "value": "([A-Za-z0-9][A-Za-z0-9-]*\\.)+[A-Za-z][A-Za-z0-9-]*"
     },
     "string": {
       "type": "CHOICE",
       "members": [
         {
           "type": "PATTERN",
-          "value": "\"([^\\\\\\r\\n\\\"]|\\\\([^\\r\\n]|[0-7]+|x[0-9a-fA-F]+))*\""
+          "value": "\"([^\\\\\\r\\n\"]|\\\\([^\\r\\n]|[0-7]+|x[0-9a-fA-F]+))*\""
         },
         {
           "type": "SYMBOL",
