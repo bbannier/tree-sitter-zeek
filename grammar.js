@@ -223,7 +223,7 @@ module.exports = grammar({
 
     initializer: ($) => seq(optional($.init_class), $.expr),
 
-    init_class: ($) => prec_r(choice("=", "+=", "-=")),
+    init_class: () => prec_r(choice("=", "+=", "-=")),
 
     attr_list: ($) => prec_l(repeat1($.attr)),
 
@@ -425,12 +425,12 @@ module.exports = grammar({
       seq(token("@pragma"), choice("push", "pop"), /[A-Za-z0-9][A-Za-z0-9-]*/),
 
     // These directives return strings.
-    string_directive: ($) => choice("@DIR", "@FILENAME"),
+    string_directive: () => choice("@DIR", "@FILENAME"),
 
     event_hdr: ($) => seq($.id, "(", optional($.expr_list), ")"),
 
     id: () => /(::)?([A-Za-z_][A-Za-z_0-9]*)(::[A-Za-z_][A-Za-z_0-9]*)*/,
-    file: ($) => /[^ \t\r\n]+/,
+    file: () => /[^ \t\r\n]+/,
     pattern: ($) => seq(/\//, $.pattern_body, /\/i?/),
     pattern_body: (_) => /((\\\/)?[^\r\n/]?)*/,
 
@@ -443,20 +443,20 @@ module.exports = grammar({
     // Increase precedence to prefer matching over division.
     subnet: ($) => prec(1000, seq(choice($.ipv4, $.ipv6), "/", $.integer)),
 
-    port: ($) => /[0-9]+\/(tcp|udp|icmp|unknown)/,
+    port: () => /[0-9]+\/(tcp|udp|icmp|unknown)/,
 
-    integer: ($) => /[0-9]+/,
-    floatp: ($) => /(([0-9]*\.?[0-9]+)|([0-9]+\.[0-9]*))([eE][-+]?[0-9]+)?/,
-    hex: ($) => /0x[0-9a-fA-F]+/,
+    integer: () => /[0-9]+/,
+    floatp: () => /(([0-9]*\.?[0-9]+)|([0-9]+\.[0-9]*))([eE][-+]?[0-9]+)?/,
+    hex: () => /0x[0-9a-fA-F]+/,
 
     // For some reason I need to call out integers as a choice here
     // explicitly -- floatp's ability to parse an integer doesn't trigger.
     interval: ($) => seq(choice($.integer, $.floatp), $.time_unit),
-    time_unit: ($) => /(day|hr|min|sec|msec|usec)s?/,
+    time_unit: () => /(day|hr|min|sec|msec|usec)s?/,
 
     // We require hostnames to have a dot. This is a departure from Zeek,
     // but one that avoids several annoying confusions with other constants.
-    hostname: ($) => /([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z][A-Za-z0-9-]*/,
+    hostname: () => /([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z][A-Za-z0-9-]*/,
 
     // Plain string characters or escape sequences, wrapped in double-quotes.
     string: ($) =>
@@ -478,7 +478,7 @@ module.exports = grammar({
 
     // We track newlines explicitly -- this gives us the ability to honor
     // existing formatting in select places.
-    nl: ($) => /\r?\n/,
+    nl: () => /\r?\n/,
   },
 
   conflicts: ($) => [[$.expr, $.redef_record_decl]],
