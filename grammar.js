@@ -422,7 +422,7 @@ module.exports = grammar({
       ),
 
     pragma: () =>
-      seq(token("@pragma"), choice("push", "pop"), /[A-Za-z0-9][A-Za-z0-9\-]*/),
+      seq(token("@pragma"), choice("push", "pop"), /[A-Za-z0-9][A-Za-z0-9-]*/),
 
     // These directives return strings.
     string_directive: ($) => choice("@DIR", "@FILENAME"),
@@ -432,7 +432,7 @@ module.exports = grammar({
     id: () => /(::)?([A-Za-z_][A-Za-z_0-9]*)(::[A-Za-z_][A-Za-z_0-9]*)*/,
     file: ($) => /[^ \t\r\n]+/,
     pattern: ($) => seq(/\//, $.pattern_body, /\/i?/),
-    pattern_body: (_) => /((\\\/)?[^\r\n\/]?)*/,
+    pattern_body: (_) => /((\\\/)?[^\r\n/]?)*/,
 
     ipv4: (_) =>
       token(
@@ -456,12 +456,12 @@ module.exports = grammar({
 
     // We require hostnames to have a dot. This is a departure from Zeek,
     // but one that avoids several annoying confusions with other constants.
-    hostname: ($) => /([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z][A-Za-z0-9\-]*/,
+    hostname: ($) => /([A-Za-z0-9][A-Za-z0-9-]*\.)+[A-Za-z][A-Za-z0-9-]*/,
 
     // Plain string characters or escape sequences, wrapped in double-quotes.
     string: ($) =>
       choice(
-        /"([^\\\r\n\"]|\\([^\r\n]|[0-7]+|x[0-9a-fA-F]+))*"/,
+        /"([^\\\r\n"]|\\([^\r\n]|[0-7]+|x[0-9a-fA-F]+))*"/,
         $.string_directive,
       ),
 
